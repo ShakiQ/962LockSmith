@@ -14,7 +14,7 @@
 
   <script>
     async function getWorkers() {
-      const response = await fetch('http://localhost:3000/workers');
+      const response = await fetch('http://localhost:5000/workers');
       const workers = await response.json();
       const workersList = document.getElementById('workersList');
       workersList.innerHTML = JSON.stringify(workers, null, 2);
