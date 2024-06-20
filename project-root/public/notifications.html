@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>All Jobs Details</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        font-family: "Trebuchet MS", sans-serif;
+        line-height: 1.8;
+        margin: 0;
+        padding: 0;
+        background-color: #000;
+        color: #ffd700;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 40px auto;
+        background-color: #111;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+      }
+
+      h1 {
+        font-size: 28px;
+        margin-bottom: 25px;
+        color: #ffd700;
+        text-align: center;
+      }
+
+      #jobDetails {
+        margin-bottom: 20px;
+      }
+
+      #jobDetails div {
+        border: 1px solid #ccc;
+        padding: 10px;
+        margin-bottom: 10px;
+        border-radius: 5px;
+      }
+
+      #jobDetails h3 {
+        margin: 0;
+        padding: 0;
+      }
+
+      .navigation-buttons {
+        margin-top: 20px;
+        text-align: center;
+      }
+
+      .navigation-buttons button {
+        margin-right: 10px;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        background-color: #ffd700;
+        color: #000;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s;
+      }
+
+      .navigation-buttons button:hover {
+        background-color: #ffc700;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>New Jobs</h1>
+      <div id="jobDetails"></div>
+      <div class="navigation-buttons">
+        <button onclick="goBack()">Go Back</button>
+        <button onclick="goHome()">Home</button>
+      </div>
+    </div>
+
+    <script>
+      async function getJobsByWorker() {
+        const response = await fetch(`http://localhost:3000/jobs`);
+        const jobs = await response.json();
+        const workerJobs = jobs.filter(job => job["worker-id"] == "");
+        const jobDetails = document.getElementById('jobDetails');
+        jobDetails.innerHTML = ''; // Clear previous results
+    
+        workerJobs.forEach(job => {
+          const jobContainer = document.createElement('div');
+          jobContainer.classList.add('job-container');
+    
+          jobContainer.innerHTML = `
+          <div class="job-details">
+            <h3>Job ID: ${job.id}</h3>
+            <p>Client Name: ${job["client-name"]}</p>
+            <p>Service: ${job["service"]}</p>
+            <p>Phone Number: ${job["phone-number"]}</p>
+            <p>Address: ${job.address}</p>
+            <p>Time and Date: ${job.timeAndDate}</p>
+            <p>Description: ${job.description}</p>
+          </div>
+          <div class="job-actions">
+            <button class="edit-btn" onclick="loadEditPage(${job.id})">Edit</button>
+            <button class="delete-btn" onclick='deleteJob(${job.id})'>Delete</button>
+          </div>
+        `;
+    
+          jobDetails.appendChild(jobContainer);
+        });
+      }
+    
+      // Fetch all jobs with no worker ID when the page loads
+      document.addEventListener('DOMContentLoaded', getJobsByWorker);
+
+
+      async function deleteJob(id) {
+        try {
+          const response = await fetch(`http://localhost:3000/jobs/${id}`, {
+            method: "DELETE",
+          });
+          location.reload(); // Refresh page after deletion
+        } catch (error) {
+          console.error("Error deleting job:", error);
+        }
+      }
+
+      function loadEditPage(id) {
+        window.location.href = `http://localhost:3000/updateNewJob.html?id=${id}`;
+      }
+      function goBack() {
+        window.history.back();
+      }
+
+      function goHome() {
+        window.location.href = 'index.html';
+      }
+
+      // Fetch all jobs when the page loads
+      document.addEventListener('DOMContentLoaded', getAllJobs);
+    </script>
+  </body>
+</html>

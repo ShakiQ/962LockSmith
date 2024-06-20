@@ -19,7 +19,7 @@ app.use(express.json());
 // Serve static files from the 'public' directory
 app.use(express.static('public'));
 
-const SECRET_KEY = 'your_secret_key';
+const SECRET_KEY = 'the_secret_key';
 
 const users = [
   { id: '1', username: '1', password: bcrypt.hashSync('1', 8) },

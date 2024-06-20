@@ -93,6 +93,42 @@
       .buttons button:hover {
         background-color: #ffc700;
       }
+
+      .notification-btn {
+        position: fixed;
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        background-color: #FFD700;
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+  
+      .notification-icon {
+        color: #000;
+      }
+  
+      .notification-count {
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        background-color: red;
+        color: white;
+        border-radius: 50%;
+        padding: 2px 5px;
+        font-size: 12px;
+      }
+  
+      .blink {
+        animation: blinker 1.5s linear infinite;
+      }
     </style>
   </head>
   <body>
@@ -117,6 +153,10 @@
       </button>
       <button class="view-all-jobs-btn" onclick="loadAllJobsPage()">
         View All Jobs
+      </button>
+      <button class="notification-btn" onclick="viewNotifications()">
+        <span class="notification-icon">🔔</span>
+        <span id="notification-count" class="notification-count"></span>
       </button>
     </div>
 
@@ -161,25 +201,47 @@
         window.location.href = "jobDetails.html";
       }
 
+      function viewNotifications() {
+        window.location.href = "notifications.html";
+      }
+
       window.onload = async function () {
-        var token = localStorage.getItem('token');
-        
+        var token = localStorage.getItem("token");
+
         const response = await fetch("http://localhost:3000/protected", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization":token
+            Authorization: token,
           },
-          
         });
 
         const data = await response.json();
 
         if (response.ok) {
-          var username = localStorage.getItem('username');
+          var username = localStorage.getItem("username");
           window.location.href = `http://localhost:3000/dashboard.html?id=${username}`;
-        } 
+        }
       };
+
+      function updateNotificationCount() {
+        const count = localStorage.getItem("notificationCount") || 0;
+        const notificationCountElem = document.getElementById("notification-count");
+        notificationCountElem.textContent = count;
+        if (count > 0) {
+          notificationCountElem.classList.add("blink");
+        } else {
+          notificationCountElem.classList.remove("blink");
+        }
+      }
+    
+      function viewNotifications() {
+        localStorage.setItem("notificationCount", 0); // Reset notification count
+        updateNotificationCount();
+        window.location.href = "notifications.html";
+      }
+    
+      document.addEventListener('DOMContentLoaded', updateNotificationCount);
     </script>
   </body>
 </html>
