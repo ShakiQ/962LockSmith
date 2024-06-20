@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>962LockSmith - Your Reliable Locksmith Service</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  
+  <div class="container">
+    <header>
+      <h1>Welcome to 962LockSmith</h1>
+      <p>We are your reliable locksmith service provider.</p>
+    </header>
+
+    <section id="description">
+      <h2>About Us</h2>
+      <p>962LockSmith offers professional locksmith services tailored to your needs. Whether you need emergency lockout assistance, lock repairs, key duplication, or security system installations, we are here to help.</p>
+    </section>
+
+    <section id="services">
+      <h2>Our Services</h2>
+      <ul>
+        <li>Emergency Lockout Services</li>
+        <li>Lock Installation and Repair</li>
+        <li>Key Duplication</li>
+        <li>Security System Installation</li>
+        <li>Master Key Systems</li>
+        <li>Lockout? We're your in</li>
+      </ul>
+    </section>
+
+    <section id="create-job">
+      <h2>Request a Service</h2>
+      <form id="createJobForm" onsubmit="createJob(event)">
+        <label for="service">Service wanted:</label>
+        <input type="text" id="service" name="service" required><br><br>
+        <label for="description">Description:</label><br>
+        <textarea id="description" name="description" rows="4" cols="25" required></textarea><br><br>
+        <label for="addressId">Address:</label>
+        <input type="text" id="addressId" name="addressId" required><br><br>
+        <label for="phoneId">Phone Number:</label>
+        <input type="text" id="phoneId" name="phoneId" required><br><br>
+
+        <button type="submit">Send Request</button>
+      </form>
+      <div id="jobCreated"></div>
+    </section>
+  </div>
+
+  <a href="employee.html" class="employee-portal-button">Employee Portal</a>
+
+  <script>
+    async function createJob(job) {
+      event.preventDefault();
+      const form = document.getElementById('createJobForm');
+      const formData = new FormData(form);
+      const response = await fetch('http://localhost:3000/jobs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(Object.fromEntries(formData))
+      });
+      if (response.ok) {
+        const newJob = await response.json();
+        const jobCreated = document.getElementById('jobCreated');
+        jobCreated.innerHTML = `<h3>New Job Created</h3><pre>${JSON.stringify(newJob, null, 2)}</pre>`;
+        form.reset();
+      } else {
+        const error = await response.json();
+        alert(`Error: ${error.message}`);
+      }
+    }
+  </script>
+  
+  <script src="server.js"></script>
+</body>
+</html>

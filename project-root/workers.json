@@ -1,0 +1,25 @@
+[
+  {
+    "id": 1,
+    "first-name": "Worker One",
+    "last-name": "A",
+    "phone-number": 123456789,
+    "username": "WOA"
+  },
+  {
+    "id": 2,
+    "first-name": "Worker Two",
+    "last-name": "B",
+    "phone-number": 123456789,
+    "username": "WTB"
+  },
+  {
+    "id": 3,
+    "first-name": "Worker Three",
+    "last-name": "c",
+    "phone-number": 123456789,
+    "username": "WTC"
+  }
+
+
+]

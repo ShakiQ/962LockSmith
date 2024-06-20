@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Delete Job by ID</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <h1>Delete Job by ID</h1>
+  <form id="deleteJobForm" onsubmit="deleteJob(event)">
+    <label for="jobId">Job ID:</label>
+    <input type="text" id="jobId" name="jobId" required><br><br>
+    <button type="submit">Delete Job</button>
+  </form>
+  <div id="jobDeleted"></div>
+
+  <script>
+    async function deleteJob(event) {
+      event.preventDefault();
+      const jobId = document.getElementById('jobId').value;
+      const response = await fetch(`http://localhost:3000/jobs/${jobId}`, {
+        method: 'DELETE'
+      });
+      const result = await response.json();
+      const jobDeleted = document.getElementById('jobDeleted');
+      jobDeleted.innerHTML = JSON.stringify(result, null, 2);
+      document.getElementById('deleteJobForm').reset();
+    }
+  </script>
+</body>
+</html>
+

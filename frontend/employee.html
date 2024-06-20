@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h2>Login</h2>
+    <form id="loginForm" onsubmit="login(event)">
+      <label for="username">Username:</label><br>
+      <input type="text" id="username" name="username" required><br><br>
+      <label for="password">Password:</label><br>
+      <input type="password" id="password" name="password" required><br><br>
+      <button type="submit">Login</button>
+    </form>
+    <div id="loginError" class="error-message"></div>
+  </div>
+
+  <script>
+    async function login(event) {
+      event.preventDefault();
+      const form = document.getElementById('loginForm');
+      const formData = new FormData(form);
+      const username = formData.get('username');
+      const password = formData.get('password');
+
+      // Simulate basic authentication (replace with actual authentication logic)
+      if (username === 'user' && password === 'password') {
+        // Redirect to dashboard page
+        window.location.href = 'dashboard.html';
+      } else {
+        const loginError = document.getElementById('loginError');
+        loginError.textContent = 'Invalid username or password. Please try again.';
+      }
+    }
+  </script>
+
+</body>
+</html>

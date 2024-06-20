@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Update Job by ID</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <h1>Update Job by ID</h1>
+  <form id="updateJobForm" onsubmit="updateJob(event)">
+    <label for="jobId">Job ID:</label>
+    <input type="text" id="jobId" name="jobId" required><br><br>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br><br>
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+    <button type="submit">Update Job</button>
+  </form>
+  <div id="jobUpdated"></div>
+
+  <script>
+    async function updateJob(event) {
+      event.preventDefault();
+      const jobId = document.getElementById('jobId').value;
+      const formData = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value
+      };
+      const response = await fetch(`http://localhost:3000/job/${jobId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      const updatedJob = await response.json();
+      const jobUpdated = document.getElementById('jobUpdated');
+      jobUpdated.innerHTML = JSON.stringify(updatedJob, null, 2);
+      document.getElementById('updateJobForm').reset();
+    }
+  </script>
+</body>
+</html>
+

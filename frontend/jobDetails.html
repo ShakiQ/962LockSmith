@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Job by ID</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <h1>Get Job by ID</h1>
+  <form id="getJobForm" onsubmit="getJob(event)">
+    <label for="jobId">Job ID:</label>
+    <input type="text" id="jobId" name="jobId" required><br><br>
+    <button type="submit">Get Job</button>
+  </form>
+  <div id="jobDetails"></div>
+
+  <script>
+    async function getJob(event) {
+      event.preventDefault();
+      const jobId = document.getElementById('jobId').value;
+      const response = await fetch(`http://localhost:3000/jobs/${jobId}`);
+      const job = await response.json();
+      const jobDetails = document.getElementById('jobDetails');
+      jobDetails.innerHTML = JSON.stringify(job, null, 2);
+    }
+  </script>
+</body>
+</html>
+

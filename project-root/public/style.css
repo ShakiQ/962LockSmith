@@ -1,0 +1,110 @@
+/* Global Styles */
+body {
+  font-family: 'Trebuchet MS', sans-serif;
+  line-height: 1.8;
+  margin: 0;
+  padding: 0;
+  background-color: #000;
+  color: #FFD700;
+}
+
+.container {
+  max-width: 800px;
+  margin: 40px auto;
+  background-color: #111;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+}
+
+/* 962 Logo Placeholder */
+/* CSS for the logo */
+/* CSS for the logo */
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: center;
+  left: 50;
+  }
+
+
+
+h1 {
+  font-size: 28px;
+  margin-bottom: 25px;
+  color: #FFD700;
+  text-align: center;
+}
+
+form {
+  margin-bottom: 25px;
+}
+
+label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+  color: #FFD700;
+}
+
+input[type="text"],
+textarea,
+input[type="datetime-local"] {
+  width: 50%; /* Adjusted width */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #FFD700;
+  border-radius: 5px;
+  background-color: #222;
+  color: #FFD700;
+  display: block; /* Ensure fields are block elements */
+}
+
+textarea {
+  resize: vertical;
+}
+
+button {
+  background-color: #FFD700;
+  color: #000;
+  padding: 12px 25px;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #FFC700;
+}
+
+button:disabled {
+  background-color: #333;
+  color: #666;
+  cursor: not-allowed;
+}
+
+pre {
+  background-color: #333;
+  padding: 15px;
+  border: 1px solid #FFD700;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+  color: #FFD700;
+}
+
+/* Specific Styles for Each Page */
+#jobsList,
+#workersList,
+#jobAdded,
+#jobDetails,
+#workerDetails,
+#jobByWorkerDetails,
+#jobUpdated,
+#jobDeleted {
+  margin-top: 25px;
+}

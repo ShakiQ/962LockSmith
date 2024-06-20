@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Worker by ID</title>
+  <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+  <h1>Get Worker by ID</h1>
+  <form id="getWorkerForm" onsubmit="getWorker(event)">
+    <label for="workerId">Worker ID:</label>
+    <input type="text" id="workerId" name="workerId" required><br><br>
+    <button type="submit">Get Worker</button>
+  </form>
+  <div id="workerDetails"></div>
+
+  <script>
+    async function getWorker(event) {
+      event.preventDefault();
+      const workerId = document.getElementById('workerId').value;
+      const response = await fetch(`http://localhost:3000/workers/${workerId}`);
+      const worker = await response.json();
+      const workerDetails = document.getElementById('workerDetails');
+      workerDetails.innerHTML = JSON.stringify(worker, null, 2);
+    }
+  </script>
+</body>
+</html>
+

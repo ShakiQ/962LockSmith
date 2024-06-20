@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add New Job</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Add New Job</h1>
+  <form id="addJobForm" onsubmit="addJob(event)">
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title" required><br><br>
+    <label for="description">Description:</label><br>
+    <textarea id="description" name="description" rows="4" cols="50" required></textarea><br><br>
+    <button type="submit">Add Job</button>
+  </form>
+  <div id="jobAdded"></div>
+
+  <script>
+    async function addJob(event) {
+      event.preventDefault();
+      const form = document.getElementById('addJobForm');
+      const formData = new FormData(form);
+      const response = await fetch('http://localhost:3000/jobs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(Object.fromEntries(formData))
+      });
+      const newJob = await response.json();
+      const jobAdded = document.getElementById('jobAdded');
+      jobAdded.innerHTML = JSON.stringify(newJob, null, 2);
+      form.reset();
+    }
+  </script>
+</body>
+</html>
+
