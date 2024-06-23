@@ -10,16 +10,6 @@
     "id": 1
   },
   {
-    "client-name": "Client2",
-    "phone-number": "222222222",
-    "service": "Lock Repair",
-    "address": "5678 DEF Avenue",
-    "timeAndDate": "2023-06-19T09:00",
-    "description": "Broken lock on front door",
-    "worker-id": "1",
-    "id": 2
-  },
-  {
     "client-name": "Client3",
     "phone-number": "333333333",
     "service": "Key Duplication",
@@ -110,13 +100,9 @@
     "id": 13
   },
   {
-    "client-name": "aaaaaaaaaaaaaa",
-    "phone-number": "aaaaaaaaaaaaaaaaaaaaaaa",
-    "service": "aaaaaaaaaaaaaaaaaaaa",
-    "address": "aaaaaaaaaaaaaaaaaaaaaaaa",
-    "timeAndDate": "111111-11-11T11:11",
-    "description": "aaaaaaaaaaaaa",
-    "worker-id": 1,
+    "title": "Updated Job",
+    "description": "Updated Description",
+    "worker-id": 2,
     "id": 14
   }
 ]
