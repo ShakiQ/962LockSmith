@@ -149,14 +149,15 @@
         const options = await workersResponse.json();
         for (let i = 0; i < options.length; i++) {
           const option = document.createElement("option");
-          option.value = options[i].id;
-          option.text = `${options[i]["first-name"]} ${options[i]["last-name"]}`;
+          option.value = options[i]._id;
+          option.text = `${options[i]["firstName"]} ${options[i]["lastName"]}`;
 
           dropdown.add(option);
         }
         const url = document.location.href;
         const params = url.split("?")[1].split("&");
         const jobId = params[0].split("=")[1];
+        console.log(jobId);
         const JobResponse = await fetch(`http://localhost:3000/jobs/${jobId}`);
         const job = await JobResponse.json();
         document.getElementById('client-name').value = job['client-name'];
@@ -165,7 +166,7 @@
         document.getElementById('address').value = job['address'];
         document.getElementById('timeAndDate').value = job['timeAndDate'];
         document.getElementById('description').value = job['description'];
-        document.getElementById('worker-id').value = job['worker-id'];
+        document.getElementById('worker-id').value = job['workerId'];
 
 
       };
@@ -175,6 +176,7 @@
         const url = document.location.href;
         const params = url.split("?")[1].split("&");
         const jobId = params[0].split("=")[1];
+        console.log(jobId);
         const formData = {
           'client-name': document.getElementById('client-name').value,
           'phone-number': document.getElementById('phone-number').value,
@@ -182,7 +184,7 @@
           'address': document.getElementById('address').value,
           'timeAndDate': document.getElementById('timeAndDate').value,
           'description': document.getElementById('description').value,
-          'worker-id': parseInt(document.getElementById('worker-id').value),
+          'workerId': document.getElementById('worker-id').value,
 
         };
         const response = await fetch(`http://localhost:3000/jobs/${jobId}`, {

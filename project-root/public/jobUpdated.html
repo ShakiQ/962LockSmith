@@ -93,11 +93,11 @@
     <form id="updateJobForm" onsubmit="updateJob(event)">
       <div class="form-group">
         <label for="name">Customer Name:</label>
-        <input type="text" id="client-name" name="client-name" required />
+        <input type="text" id="clientName" name="clientName" required />
       </div>
       <div class="form-group">
         <label for="phoneNumber">Phone Number:</label>
-        <input type="text" id="phone-number" name="phone-number" required />
+        <input type="text" id="phoneNumber" name="phoneNumber" required />
       </div>
       <div class="form-group">
         <label for="serviceNeeded">Service Needed:</label>
@@ -126,8 +126,8 @@
         ></textarea>
       </div>
       <div class="form-group">
-        <label for="worker-id">Assign to worker:</label>
-        <select name="worker-id" id="worker-id" required></select>
+        <label for="workerId">Assign to worker:</label>
+        <select name="workerId" id="workerId" required></select>
       </div>
 
       <div class="button-group">
@@ -144,13 +144,13 @@
 
 
       window.onload = async function () {
-        var dropdown = document.getElementById("worker-id");
+        var dropdown = document.getElementById("workerId");
         const workersResponse = await fetch("http://localhost:3000/workers");
         const options = await workersResponse.json();
         for (let i = 0; i < options.length; i++) {
           const option = document.createElement("option");
-          option.value = options[i].id;
-          option.text = `${options[i]["first-name"]} ${options[i]["last-name"]}`;
+          option.value = options[i]._id;
+          option.text = `${options[i]["firstName"]} ${options[i]["lastName"]}`;
 
           dropdown.add(option);
         }
@@ -159,13 +159,13 @@
         const jobId = params[0].split("=")[1];
         const JobResponse = await fetch(`http://localhost:3000/jobs/${jobId}`);
         const job = await JobResponse.json();
-        document.getElementById('client-name').value = job['client-name'];
-        document.getElementById('phone-number').value = job['phone-number'];
+        document.getElementById('clientName').value = job['clientName'];
+        document.getElementById('phoneNumber').value = job['phoneNumber'];
         document.getElementById('service').value = job['service'];
         document.getElementById('address').value = job['address'];
         document.getElementById('timeAndDate').value = job['timeAndDate'];
         document.getElementById('description').value = job['description'];
-        document.getElementById('worker-id').value = job['worker-id'];
+        document.getElementById('workerId').value = job['workerId'];
 
 
       };
@@ -175,14 +175,15 @@
         const url = document.location.href;
         const params = url.split("?")[1].split("&");
         const jobId = params[0].split("=")[1];
+        console.log(document.getElementById('workerId').value);
         const formData = {
-          'client-name': document.getElementById('client-name').value,
-          'phone-number': document.getElementById('phone-number').value,
+          'clientName': document.getElementById('clientName').value,
+          'phoneNumber': document.getElementById('phoneNumber').value,
           'service': document.getElementById('service').value,
           'address': document.getElementById('address').value,
           'timeAndDate': document.getElementById('timeAndDate').value,
           'description': document.getElementById('description').value,
-          'worker-id': parseInt(document.getElementById('worker-id').value),
+          'workerId': document.getElementById('workerId').value,
 
         };
         const response = await fetch(`http://localhost:3000/jobs/${jobId}`, {
@@ -193,8 +194,8 @@
           body: JSON.stringify(formData)
         });
         if (response.ok) {
-          var username = localStorage.getItem('username');
-          window.location.href = `http://localhost:3000/dashboard.html?id=${username}`;
+          var workerId = localStorage.getItem('workerId');
+          window.location.href = `http://localhost:3000/dashboard.html?id=${workerId}`;
         }
 
       }

@@ -1,247 +1,253 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Login Page</title>
-    <link rel="stylesheet" href="style.css" />
-    <style>
-      body {
-        font-family: "Trebuchet MS", sans-serif;
-        line-height: 1.8;
-        margin: 0;
-        padding: 0;
-        background-color: #000;
-        color: #ffd700;
-      }
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login Page</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: "Trebuchet MS", sans-serif;
+      line-height: 1.8;
+      margin: 0;
+      padding: 0;
+      background-color: #000;
+      color: #ffd700;
+    }
 
-      .container {
-        max-width: 400px;
-        margin: 40px auto;
-        background-color: #111;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
-      }
+    .container {
+      max-width: 400px;
+      margin: 40px auto;
+      background-color: #111;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+    }
 
-      h2 {
-        font-size: 24px;
-        margin-bottom: 20px;
-        color: #ffd700;
-        text-align: center;
-      }
+    h2 {
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #ffd700;
+      text-align: center;
+    }
 
-      form {
-        margin-bottom: 20px;
-      }
+    form {
+      margin-bottom: 20px;
+    }
 
-      label {
-        display: block;
-        margin-bottom: 10px;
-      }
+    label {
+      display: block;
+      margin-bottom: 10px;
+    }
 
-      input[type="text"],
-      input[type="password"] {
-        width: 95%;
-        padding: 8px;
-        margin-bottom: 15px;
-        border: 1px solid #ffd700;
-        border-radius: 5px;
-        background-color: #222;
-        color: #ffd700;
-        display: block;
-      }
+    input[type="text"],
+    input[type="password"] {
+      width: 95%;
+      padding: 8px;
+      margin-bottom: 15px;
+      border: 1px solid #ffd700;
+      border-radius: 5px;
+      background-color: #222;
+      color: #ffd700;
+      display: block;
+    }
 
-      button[type="submit"] {
-        background-color: #ffd700;
-        color: #000;
-        padding: 12px 25px;
-        border: none;
-        cursor: pointer;
-        border-radius: 5px;
-        font-size: 16px;
-        transition: background-color 0.3s;
-      }
+    button[type="submit"] {
+      background-color: #ffd700;
+      color: #000;
+      padding: 12px 25px;
+      border: none;
+      cursor: pointer;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: background-color 0.3s;
+    }
 
-      button[type="submit"]:hover {
-        background-color: #ffc700;
-      }
+    button[type="submit"]:hover {
+      background-color: #ffc700;
+    }
 
-      .error-message {
-        color: #ff4500;
-        font-size: 14px;
-        text-align: center;
-      }
+    .error-message {
+      color: #ff4500;
+      font-size: 14px;
+      text-align: center;
+    }
 
-      .buttons {
-        margin-top: 20px;
-        text-align: center;
-      }
+    .buttons {
+      margin-top: 20px;
+      text-align: center;
+    }
 
-      .buttons button {
-        margin-right: 10px;
-        padding: 10px 10px;
-        font-size: 16px;
-        cursor: pointer;
-        background-color: #ffd700;
-        color: #000;
-        border: none;
-        border-radius: 5px;
-        transition: background-color 0.3s;
-      }
+    .buttons button {
+      margin-right: 10px;
+      padding: 10px 10px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #ffd700;
+      color: #000;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
 
-      .buttons button:hover {
-        background-color: #ffc700;
-      }
+    .buttons button:hover {
+      background-color: #ffc700;
+    }
 
-      .notification-btn {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        background-color: #FFD700;
-        border: none;
-        cursor: pointer;
-        font-size: 24px;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-  
-      .notification-icon {
-        color: #000;
-      }
-  
-      .notification-count {
-        position: absolute;
-        top: -5px;
-        right: -5px;
-        background-color: red;
-        color: white;
-        border-radius: 50%;
-        padding: 2px 5px;
-        font-size: 12px;
-      }
-  
-      .blink {
-        animation: blinker 1.5s linear infinite;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h2>Login</h2>
-      <form id="loginForm" onsubmit="login(event)">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required />
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required />
-        <button type="submit">Login</button>
-      </form>
-      <div id="loginError" class="error-message"></div>
-    </div>
+    .notification-btn {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      background-color: #FFD700;
+      border: none;
+      cursor: pointer;
+      font-size: 24px;
+      padding: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-    <div class="buttons">
-      <button class="add-job-btn" onclick="loadAddJobPage()">
-        Add New Job
-      </button>
-      <button class="view-jobs-by-worker-btn" onclick="loadJobsByWorkerPage()">
-        View Jobs by Worker
-      </button>
-      <button class="view-all-jobs-btn" onclick="loadAllJobsPage()">
-        View All Jobs
-      </button>
-      <button class="notification-btn" onclick="viewNotifications()">
-        <span class="notification-icon">🔔</span>
-        <span id="notification-count" class="notification-count"></span>
-      </button>
-    </div>
+    .notification-icon {
+      color: #000;
+    }
 
-    <script>
-      async function login(event) {
-        event.preventDefault();
-        const form = document.getElementById("loginForm");
-        const formData = new FormData(form);
-        const username = formData.get("username");
-        const password = formData.get("password");
+    .notification-count {
+      position: absolute;
+      top: -5px;
+      right: -5px;
+      background-color: red;
+      color: white;
+      border-radius: 50%;
+      padding: 2px 5px;
+      font-size: 12px;
+    }
 
+    .blink {
+      animation: blinker 1.5s linear infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <label for="username">Username:</label>
+      <input type="text" id="username" name="username" required>
+      <label for="password">Password:</label>
+      <input type="password" id="password" name="password" required>
+      <button type="submit">Login</button>
+    </form>
+    <div id="loginError" class="error-message"></div>
+  </div>
+
+  <div class="buttons">
+    <button class="add-job-btn" onclick="loadAddJobPage()">
+      Add New Job
+    </button>
+    <button class="view-jobs-by-worker-btn" onclick="loadJobsByWorkerPage()">
+      View Jobs by Worker
+    </button>
+    <button class="view-all-jobs-btn" onclick="loadAllJobsPage()">
+      View All Jobs
+    </button>
+    <button class="notification-btn" onclick="viewNotifications()">
+      <span class="notification-icon">🔔</span>
+      <span id="notification-count" class="notification-count"></span>
+    </button>
+  </div>
+
+  <script>
+    async function login(event) {
+      event.preventDefault();
+      const form = document.getElementById("loginForm");
+      const formData = new FormData(form);
+      const username = formData.get("username");
+      const password = formData.get("password");
+
+      try {
         const response = await fetch("http://localhost:3000/login", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify({ username, password }),
+          body: JSON.stringify({ username, password })
         });
 
-        const data = await response.json();
-
-        if (response.ok) {
-          localStorage.setItem("token", data.token);
-          localStorage.setItem("username", username);
-          window.location.href = `http://localhost:3000/dashboard.html?id=${username}`;
-        } else {
-          const loginError = document.getElementById("loginError");
-          loginError.textContent =
-            data.message || "Invalid username or password. Please try again.";
+        if (!response.ok) {
+          const data = await response.json();
+          throw new Error(data.message || "Login failed");
         }
+        const responseJson = await response.json();
+        localStorage.setItem("token", responseJson.token);
+        localStorage.setItem("workerId", responseJson.workerId);
+        navigateToDashboard(); // Redirect to dashboard or desired page
+      } catch (error) {
+        const loginError = document.getElementById("loginError");
+        loginError.textContent = error.message;
       }
+    }
 
-      function loadAddJobPage() {
-        window.location.href = "jobAdded.html";
+    const loginForm = document.getElementById("loginForm");
+    loginForm.addEventListener("submit", login);
+
+    function navigateToDashboard() {
+      window.location.href = `dashboard.html`;
+    }
+
+    function loadAddJobPage() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please login first");
+        return;
       }
+      window.location.href = "addJob.html";
+    }
 
-      function loadJobsByWorkerPage() {
-        window.location.href = "jobByWorkerDetails.html";
+    function loadJobsByWorkerPage() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please login first");
+        return;
       }
+      window.location.href = "jobsByWorker.html";
+    }
 
-      function loadAllJobsPage() {
-        window.location.href = "jobDetails.html";
+    function loadAllJobsPage() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please login first");
+        return;
       }
+      window.location.href = "allJobs.html";
+    }
 
-      function viewNotifications() {
-        window.location.href = "notifications.html";
+    function viewNotifications() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Please login first");
+        return;
       }
+      localStorage.setItem("notificationCount", 0); // Reset notification count
+      updateNotificationCount();
+      window.location.href = "notifications.html";
+    }
 
-      window.onload = async function () {
-        var token = localStorage.getItem("token");
-
-        const response = await fetch("http://localhost:3000/protected", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-          var username = localStorage.getItem("username");
-          window.location.href = `http://localhost:3000/dashboard.html?id=${username}`;
-        }
-      };
-
-      function updateNotificationCount() {
-        const count = localStorage.getItem("notificationCount") || 0;
-        const notificationCountElem = document.getElementById("notification-count");
-        notificationCountElem.textContent = count;
-        if (count > 0) {
-          notificationCountElem.classList.add("blink");
-        } else {
-          notificationCountElem.classList.remove("blink");
-        }
+    function updateNotificationCount() {
+      const count = localStorage.getItem("notificationCount") || 0;
+      const notificationCountElem = document.getElementById("notification-count");
+      notificationCountElem.textContent = count;
+      if (count > 0) {
+        notificationCountElem.classList.add("blink");
+      } else {
+        notificationCountElem.classList.remove("blink");
       }
-    
-      function viewNotifications() {
-        localStorage.setItem("notificationCount", 0); // Reset notification count
-        updateNotificationCount();
-        window.location.href = "notifications.html";
-      }
-    
-      document.addEventListener('DOMContentLoaded', updateNotificationCount);
-    </script>
-  </body>
+    }
+
+    document.addEventListener('DOMContentLoaded', updateNotificationCount);
+  </script>
+</body>
 </html>

@@ -83,7 +83,7 @@
       async function getJobsByWorker() {
         const response = await fetch(`http://localhost:3000/jobs`);
         const jobs = await response.json();
-        const workerJobs = jobs.filter(job => job["worker-id"] == "");
+        const workerJobs = jobs.filter(job => !job.workerId); // Check for no workerID
         const jobDetails = document.getElementById('jobDetails');
         jobDetails.innerHTML = ''; // Clear previous results
     
@@ -93,17 +93,17 @@
     
           jobContainer.innerHTML = `
           <div class="job-details">
-            <h3>Job ID: ${job.id}</h3>
-            <p>Client Name: ${job["client-name"]}</p>
-            <p>Service: ${job["service"]}</p>
-            <p>Phone Number: ${job["phone-number"]}</p>
+            <h3>Job ID: ${job._id}</h3>
+            <p>Client Name: ${job.clientName}</p>
+            <p>Service: ${job.service}</p>
+            <p>Phone Number: ${job.phoneNumber}</p>
             <p>Address: ${job.address}</p>
             <p>Time and Date: ${job.timeAndDate}</p>
             <p>Description: ${job.description}</p>
           </div>
           <div class="job-actions">
-            <button class="edit-btn" onclick="loadEditPage(${job.id})">Edit</button>
-            <button class="delete-btn" onclick='deleteJob(${job.id})'>Delete</button>
+            <button class="edit-btn" onclick="loadEditPage('${job._id}')">Edit</button>
+            <button class="delete-btn" onclick='deleteJob("${job._id}")'>Delete</button>
           </div>
         `;
     
@@ -136,9 +136,6 @@
       function goHome() {
         window.location.href = 'index.html';
       }
-
-      // Fetch all jobs when the page loads
-      document.addEventListener('DOMContentLoaded', getAllJobs);
     </script>
   </body>
 </html>

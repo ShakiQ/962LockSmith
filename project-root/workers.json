@@ -4,21 +4,27 @@
     "first-name": "Worker One",
     "last-name": "A",
     "phone-number": 123456789,
-    "username": "WOA"
+    "username": "user1",
+    "password": "password1",
+    "email":"user1@962LockSmith.com"
   },
   {
     "id": 2,
     "first-name": "Worker Two",
     "last-name": "B",
     "phone-number": 123456789,
-    "username": "WTB"
+    "username": "user2",
+    "password": "password2",
+    "email":"user2@962LockSmith.com"
   },
   {
     "id": 3,
     "first-name": "Worker Three",
     "last-name": "C",
     "phone-number": 123456789,
-    "username": "WTC"
+    "username": "user3",
+    "password": "password3",
+    "email":"user3@962LockSmith.com"
   }
 
 

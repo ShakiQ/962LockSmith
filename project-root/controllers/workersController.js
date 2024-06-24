@@ -1,31 +1,82 @@
-const fs = require('fs').promises;
+const Worker = require('../models/Worker');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 
-// Retrieve all workers
+const SECRET_KEY = process.env.SECRET_KEY || 'default_secret_key';
+
 exports.getAllWorkers = async (req, res) => {
   try {
-    const workersData = await fs.readFile('workers.json');
-    const workers = JSON.parse(workersData);
-    res.json(workers);
+    const workers = await Worker.find();
+    res.status(200).send(workers);
   } catch (error) {
-    console.error('Error reading worker file:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).send({ message: 'Internal server error' });
   }
 };
 
-// Retrieve a single worker by ID
 exports.getWorkerById = async (req, res) => {
   try {
-    const workersData = await fs.readFile('workers.json');
-    const workers = JSON.parse(workersData);
-    const workerId = parseInt(req.params.id);
-    const worker = workers.find(w => w.id === workerId);
-    if (!worker) {
-      res.status(404).json({ message: 'Worker not found' });
+    console.log(req.params.id);
+    const worker = await Worker.findById(req.params.id);
+    if (worker) {
+      res.status(200).send(worker);
     } else {
-      res.json(worker);
+      res.status(404).send({ message: 'Worker not found' });
     }
   } catch (error) {
-    console.error('Error reading workers file:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
+    res.status(500).send({ message: 'Internal server error' });
   }
+};
+
+exports.addWorker = async (req, res) => {
+  const { firstName, lastName, phoneNumber, username, password } = req.body;
+  try {
+    // Hash the user's password
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+    const worker = new Worker({ firstName, lastName, phoneNumber, username, password: hashedPassword });
+    
+    await worker.save();
+    res.status(201).send(worker);
+  } catch (error) {
+    res.status(500).send({ message: 'Internal server error' });
+  }
+};
+
+exports.login = async (req, res) => {
+  const { username, password } = req.body;
+  try {
+    const worker = await Worker.findOne({ username });
+    if (!worker) {
+      return res.status(401).send({ message: 'Worker is not found' });
+    }
+
+    const validPassword = await bcrypt.compare(password, worker.password);
+    if (!validPassword) {
+      return res.status(401).send({ message: 'Invalid username or password' });
+    }
+
+    const token = jwt.sign({ id: worker._id }, SECRET_KEY, { expiresIn: 120 });
+    res.status(200).send({ token: token, workerId: worker._id });
+  } catch (error) {
+    res.status(500).send({ message: 'Internal server error' });
+  }
+};
+
+
+// Middleware to verify JWT
+
+exports.verify = async (req, res) => {
+  const token = req.headers['authorization'];
+  if (!token) {
+    return res.status(403).send({ message: 'No token provided.' });
+  }
+
+  jwt.verify(token, SECRET_KEY, (err, decoded) => {
+    if (err) {
+      return res.status(500).send({ message: 'Failed to authenticate token.' });
+    }
+
+    req.id = decoded.id;
+    res.status(200).send({ message: 'This is a protected route', userId: req.userId });
+  });
 };
